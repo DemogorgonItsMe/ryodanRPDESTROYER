@@ -1,0 +1,188 @@
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+
+local win = DiscordLib:Window("ЧВК РЕДАН РП DESTROYER BY DEMOGORGON")
+
+local serv = win:Server("Функции", "")
+local tab4 = serv:Channel("Основное")
+tab4:Label("Игрок")
+tab4:Button("Убить себя", function()
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+end)
+tab4:Button("Убрать задержку применения для всего", function()
+    -- Функция для изменения HoldDuration всех ProximityPrompt
+    local function setHoldDurationToZero()
+        -- Проходим по всем объектам в workspace
+        for _, part in ipairs(workspace:GetDescendants()) do
+            if part:IsA("BasePart") then
+                for _, prompt in ipairs(part:GetChildren()) do -- Проверяем каждый объект на наличие ProximityPrompt
+                    if prompt:IsA("ProximityPrompt") then
+                        prompt.HoldDuration = 0
+                        print("HoldDuration для ProximityPrompt '" .. prompt.Name .. "' установлен в 0")
+                    end
+                end
+            end
+        end
+        print("Изменение HoldDuration завершено.")
+    end
+
+    -- Вызываем функцию для изменения HoldDuration
+    setHoldDurationToZero()
+end)
+tab4:Label("Геймпассы")
+tab4:Button("Разблокировать омон и полицию", function()
+game.Workspace["VIP Door"]:Destroy()
+game.Workspace["VIP Door1"]:Destroy()
+game.Workspace["VIP Door2"]:Destroy()
+game.Workspace["VIP Door3"]:Destroy()
+end)
+local tab5 = serv:Channel("Краш сервера")
+tab5:Button("Выбросить сухарики", function()
+    -- Скрипт для выброса предметов "kirieski"
+
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+
+    local function dropKirieski()
+        local character = LocalPlayer.Character
+        local backpack = LocalPlayer:FindFirstChild("Backpack")
+
+        if not character or not backpack then
+            print("Персонаж или рюкзак не найдены")
+            return
+        end
+
+        -- Проверяем предметы в рюкзаке
+        for _, item in pairs(backpack:GetChildren()) do
+            if item.Name == "kirieski" then
+                -- Создаем RemoteEvent для выброса предмета
+                local args = {
+                    [1] = item
+                }
+                -- Предполагаем, что в игре есть RemoteEvent для выброса предметов
+                -- В разных играх это может быть реализовано по-разному
+                if game:GetService("ReplicatedStorage"):FindFirstChild("DropItem") then
+                    game:GetService("ReplicatedStorage").DropItem:FireServer(unpack(args))
+                else
+                    -- Если нет стандартного RemoteEvent, пробуем экипировать и затем выбросить
+                    item.Parent = character
+                    wait(0) -- Минимальная задержка
+                    item.Parent = workspace
+                end
+            end
+        end
+
+        -- Проверяем экипированные предметы
+        for _, item in pairs(character:GetChildren()) do
+            if item.Name == "kirieski" and item:IsA("Tool") then
+                -- Аналогично выбрасываем экипированный предмет
+                if game:GetService("ReplicatedStorage"):FindFirstChild("DropItem") then
+                    local args = {
+                        [1] = item
+                    }
+                    game:GetService("ReplicatedStorage").DropItem:FireServer(unpack(args))
+                else
+                    item.Parent = workspace
+                end
+            end
+        end
+    end
+
+    dropKirieski() -- Вызываем функцию, чтобы выбросить предметы при нажатии на кнопку
+end)
+
+
+local tab1 = serv:Channel("Ваншот тулы")
+tab1:Label("Для этого купи 5 одинаковых топоров")
+tab1:Label("Затем нажми Z подойдя в игроку")
+tab1:Button("Ваншот топор", function()
+loadstring(game:HttpGet"https://raw.githubusercontent.com/DemogorgonItsMe/really_cool_thing/refs/heads/main/Axe")()
+end)
+tab1:Button("Ваншот дробовик (Spas)", function()
+loadstring(game:HttpGet"https://raw.githubusercontent.com/DemogorgonItsMe/really_cool_thing/refs/heads/main/Spas")()
+end)
+local tab2 = serv:Channel("Телепорты")
+tab2:Label("Тп к игрокам")
+tab2:Button("Тп к рандомному игроку", function()
+loadstring(game:HttpGet(('https://pastebin.com/raw/Dt42DBR4'),true))()
+end)
+players = {}
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+
+   table.insert(players,v.Name)
+
+end
+
+local drop1 = tab2:Dropdown("Тп к выбранному игроку", players, function(abc)
+Select = abc
+end)
+tab2:Button("Телепортироваться", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Select].Character.HumanoidRootPart.CFrame
+end)
+tab2:Button("Обновить список игроков", function()
+    table.clear(players)
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+   table.insert(players,v.Name)
+end
+end)
+tab2:Label("Тп к зданиям")
+tab2:Button("Авик (снаружи)", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1537.36548, 1146.83215, 73.5195541)
+end)
+tab2:Button("Авик (внутри)", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1729.70203, 1147.05676, -19.2134075)
+end)
+tab2:Button("Крутое место (типо для админов)", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1921.98608, 1476.07886, 427.882568)
+end)
+tab2:Button("Магазин оружия 1", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1286.78967, 1125.30017, 348.007019)
+end)
+tab2:Button("Магазин оружия 2", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2269.63745, 1125.20386, 1884.20398)
+end)
+tab2:Button("Магазин ?", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(894.851501, 1124.66711, 1808.50085)
+end)
+tab2:Button("Банк", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2107.12061, 1147.72144, 729.494812)
+end)
+tab2:Button("Работа доставки", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2295.34131, 1146.80164, 996.253662)
+end)
+tab2:Button("Взять доставку", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2341.27661, 1147.77222, 940.4245)
+end)
+tab2:Button("Отдать доставку", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1308.23401, 1125.26782, 929.559998)
+end)
+tab2:Button("Охрана", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1557.00122, 1146.8634, -41.7466965)
+end)
+tab2:Button("Огнемёт", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1435.25598, 1146.86731, -158.526245)
+end)
+tab2:Button("Секретка", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(809.730652, 1026.79993, 315.154968)
+end)
+
+local tab3 = serv:Channel("Другое")
+tab3:Button("DarkDex", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+end)
+tab3:Button("Inf Yield", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+end)
+tab3:Button("Cframe Copier", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/zopias04/Roblox-cframe-copy-script/main/cframecopy"))()
+end)
+local tab6 = serv:Channel("Информация")
+tab6:Label("ВАЖНО! ПРОСЬБА ПРОЧИТАТЬ!")
+tab6:Label("Данный скрипт был сделан Демогоргоном")
+tab6:Label("И исключительно по рофлу")
+tab6:Label("Если у вас есть этот скрипт, значит я слил его")
+tab6:Label("Ну или же просто дал его вам")
+tab6:Label("Мб сам скрипт будет обновляться но не обещаю")
+tab6:Label("И большая просьба сильно не абузить этим скриптом")
+tab6:Label("Для избежания дальнейшего его фикса")
+tab6:Label("В любом случае сама игра это помойка так что... развлекайтесь")
+tab6:Label("Версия скрипта: 2.4")
